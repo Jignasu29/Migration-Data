@@ -1,0 +1,1330 @@
+---
+title: "ProjectR"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r libraries}
+install.packages("lubridate")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("tidyverse")
+install.packages("plyr")
+install.packages("ggplot")
+
+library(lubridate)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(magrittr)
+library(plyr)
+library(ggplot2)
+library(data.table)
+library(reshape2)
+
+```
+```{r save data in dataframe}
+##Reading Data
+df_mgr2000 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2000.csv", na.strings = "")
+dim(df_mgr2000)
+
+df_mgr2001 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2001.csv", na.strings = "")
+dim(df_mgr2001)
+
+df_mgr2002 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2002.csv", na.strings = "")
+dim(df_mgr2002)
+
+df_mgr2003 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2003.csv", na.strings = "")
+dim(df_mgr2003)
+
+df_mgr2004 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2004.csv", na.strings = "")
+dim(df_mgr2004)
+
+df_mgr2005 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2005.csv", na.strings = "")
+dim(df_mgr2005)
+
+df_mgr2006 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2006.csv", na.strings = "")
+dim(df_mgr2006)
+
+df_mgr2007 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2007.csv", na.strings = "")
+dim(df_mgr2007)
+
+df_mgr2008 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2008.csv", na.strings = "")
+dim(df_mgr2008)
+
+df_mgr2009 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2009.csv", na.strings = "")
+dim(df_mgr2009)
+
+df_mgr2010 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2010.csv", na.strings = "")
+dim(df_mgr2010)
+
+df_mgr2011 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2011.csv", na.strings = "")
+dim(df_mgr2011)
+
+df_mgr2012 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2012.csv", na.strings = "")
+dim(df_mgr2012)
+
+df_mgr2013 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2013.csv", na.strings = "")
+dim(df_mgr2013)
+
+df_mgr2014 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2014.csv", na.strings = "")
+dim(df_mgr2014)
+
+df_mgr2015 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2015.csv", na.strings = "")
+dim(df_mgr2015)
+
+df_mgr2016 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2016.csv", na.strings = "")
+dim(df_mgr2016)
+
+df_mgr2017 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2017.csv", na.strings = "")
+dim(df_mgr2017)
+
+df_mgr2018 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2018.csv", na.strings = "")
+dim(df_mgr2018)
+
+df_mgr2019 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2019.csv", na.strings = "")
+dim(df_mgr2019)
+
+df_mgr2020 <- read.csv("C:/Users/Jignasu Vekariya/Documents/study/ProjectR/migration_2020.csv", na.strings = "")
+dim(df_mgr2020)
+
+```
+
+##...Germany , ...United States, Spain, ....Japan, ...Turkey, ...United Kingdom,....Korea,...Canada,....France,...Australia
+
+```{r read all Columns}
+##read COlnames
+colnames(df_mgr2000)
+colnames(df_mgr2001)
+colnames(df_mgr2002)
+colnames(df_mgr2003)
+colnames(df_mgr2004)
+colnames(df_mgr2005)
+colnames(df_mgr2006)
+colnames(df_mgr2007)
+colnames(df_mgr2008)
+colnames(df_mgr2009)
+colnames(df_mgr2010)
+colnames(df_mgr2011)
+colnames(df_mgr2012)
+colnames(df_mgr2013)
+colnames(df_mgr2014)
+colnames(df_mgr2015)
+colnames(df_mgr2016)
+colnames(df_mgr2017)
+colnames(df_mgr2018)
+colnames(df_mgr2019)
+colnames(df_mgr2020)
+
+
+
+```
+
+```{r 1st column merge operation}
+
+
+# total <- merge(x=df_mgr2000,y=df_mgr2001,by="Country", x.all=TRUE)
+# dim(total)
+# total
+
+# 
+# colnames(total)
+# 
+# firstop <- total %>% 
+#   select(Country,nationality_2000=Acquisition.of.nationality.by.country.of.former.nationality.Total..x  ,nationality_2001=Acquisition.of.nationality.by.country.of.former.nationality.Total..y)
+# 
+# firstop
+# 
+
+
+data1 <- df_mgr2000 %>% 
+  select(c(1,"2000"=2))
+
+data2 <- df_mgr2001 %>% 
+  select(c(1,"2001"=2))
+
+data3 <- df_mgr2002 %>% 
+  select(c(1,"2002"=2))
+
+data4 <- df_mgr2003 %>% 
+  select(c(1,"2003"=2))
+
+data5 <- df_mgr2004 %>% 
+  select(c(1,"2004"=2))
+
+data6 <- df_mgr2005 %>% 
+  select(c(1,"2005"=2))
+
+data7 <- df_mgr2006 %>% 
+  select(c(1,"2006"=2))
+
+data8 <- df_mgr2007 %>% 
+  select(c(1,"2007"=2))
+
+data9 <- df_mgr2008 %>% 
+  select(c(1,"2008"=2))
+
+data10 <- df_mgr2009 %>% 
+  select(c(1,"2009"=2))
+
+data11 <- df_mgr2010 %>% 
+  select(c(1,"2010"=2))
+
+data12 <- df_mgr2011 %>% 
+  select(c(1,"2011"=2))
+
+data13 <- df_mgr2012 %>% 
+  select(c(1,"2012"=2))
+
+data14 <- df_mgr2013 %>% 
+  select(c(1,"2013"=2))
+
+data15 <- df_mgr2014 %>% 
+  select(c(1,"2014"=2))
+
+data16 <- df_mgr2015 %>% 
+  select(c(1,"2015"=2))
+
+data17 <- df_mgr2016 %>% 
+  select(c(1,"2016"=2))
+
+data18 <- df_mgr2017 %>% 
+  select(c(1,"2017"=2))
+
+data19 <- df_mgr2018 %>% 
+  select(c(1,"2018"=2))
+
+data20 <- df_mgr2019 %>% 
+  select(c(1,"2019"=2))
+
+# 1st Column is different
+#data21 <- df_mgr2020 %>% 
+#  select(c(1,2))
+
+
+# column1 <- merge(x=data1,y=data2, by="Country",x.all=TRUE)
+# column2 <- merge(x=column1,y=data2, by="Country",x.all=TRUE)
+
+Acquisition_nationality_by_country_of_former_nationality_Total<-join_all(list(data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 13}
+
+sum(is.na(Acquisition_nationality_by_country_of_former_nationality_Total))
+
+Acquisition_nationality_by_country_of_former_nationality_Total[is.na(Acquisition_nationality_by_country_of_former_nationality_Total)]<-0
+
+```
+
+```{r 1st plot}
+temp_table1 = Acquisition_nationality_by_country_of_former_nationality_Total[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Acquisition_nationality_by_country_of_former_nationality_Total)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_1 <- melt(temp_table1)
+df_1$row_id = 1:10
+
+ggplot(df_1, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_1, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+```
+
+```{r 2nd column merge operation}
+data1_2 <- df_mgr2000 %>% 
+  select(c(1,"2000"=3))
+
+data2_2 <- df_mgr2001 %>% 
+  select(c(1,"2001"=3))
+
+data3_2 <- df_mgr2002 %>% 
+  select(c(1,"2002"=3))
+
+data4_2 <- df_mgr2003 %>% 
+  select(c(1,"2003"=3))
+
+data5_2 <- df_mgr2004 %>% 
+  select(c(1,"2004"=3))
+
+data6_2 <- df_mgr2005 %>% 
+  select(c(1,"2005"=3))
+
+data7_2 <- df_mgr2006 %>% 
+  select(c(1,"2006"=3))
+
+data8_2 <- df_mgr2007 %>% 
+  select(c(1,"2007"=3))
+
+data9_2 <- df_mgr2008 %>% 
+  select(c(1,"2008"=3))
+
+data10_2 <- df_mgr2009 %>% 
+  select(c(1,"2009"=3))
+
+data11_2 <- df_mgr2010 %>% 
+  select(c(1,"2010"=3))
+
+data12_2 <- df_mgr2011 %>% 
+  select(c(1,"2011"=3))
+
+data13_2 <- df_mgr2012 %>% 
+  select(c(1,"2012"=3))
+
+data14_2 <- df_mgr2013 %>% 
+  select(c(1,"2013"=3))
+
+data15_2 <- df_mgr2014 %>% 
+  select(c(1,"2014"=3))
+
+data16_2 <- df_mgr2015 %>% 
+  select(c(1,"2015"=3))
+
+data17_2 <- df_mgr2016 %>% 
+  select(c(1,"2016"=3))
+
+data18_2 <- df_mgr2017 %>% 
+  select(c(1,"2017"=3))
+
+data19_2 <- df_mgr2018 %>% 
+  select(c(1,"2018"=3))
+
+data20_2 <- df_mgr2019 %>% 
+  select(c(1,"2019"=3))
+
+# 1st Column is different
+#data21 <- df_mgr2020 %>% 
+#  select(c(1,2))
+
+
+# column1 <- merge(x=data1,y=data2, by="Country",x.all=TRUE)
+# column2 <- merge(x=column1,y=data2, by="Country",x.all=TRUE)
+
+Acquisition_nationality_by_country_of_former_nationality_Women<-join_all(list(data1_2,data2_2,data3_2,data4_2,data5_2,data6_2,data7_2,data8_2,data9_2,data10_2,data11_2,data12_2,data13_2,data14_2,data15_2,data16_2,data17_2,data18_2,data19_2,data20_2),by="Country",type = "full")
+
+
+```
+
+```{r clear NA Values 1}
+sum(is.na(Acquisition_nationality_by_country_of_former_nationality_Women))
+Acquisition_nationality_by_country_of_former_nationality_Women[is.na(Acquisition_nationality_by_country_of_former_nationality_Women)]<-0
+```
+
+```{r 2nd plot}
+temp_table2 = Acquisition_nationality_by_country_of_former_nationality_Women[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Acquisition_nationality_by_country_of_former_nationality_Women)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_2 <- melt(temp_table2)
+df_2$row_id = 1:10
+
+ggplot(df_2, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_2, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+```
+
+```{r 3rd column merge operation}
+data1_3 <- df_mgr2000 %>% 
+  select(c(1,"2000"=4))
+
+data2_3 <- df_mgr2001 %>% 
+  select(c(1,"2001"=4))
+
+data3_3 <- df_mgr2002 %>% 
+  select(c(1,"2002"=4))
+
+data4_3 <- df_mgr2003 %>% 
+  select(c(1,"2003"=4))
+
+data5_3 <- df_mgr2004 %>% 
+  select(c(1,"2004"=4))
+
+data6_3 <- df_mgr2005 %>% 
+  select(c(1,"2005"=4))
+
+data7_3 <- df_mgr2006 %>% 
+  select(c(1,"2006"=4))
+
+data8_3 <- df_mgr2007 %>% 
+  select(c(1,"2007"=4))
+
+data9_3 <- df_mgr2008 %>% 
+  select(c(1,"2008"=4))
+
+data10_3 <- df_mgr2009 %>% 
+  select(c(1,"2009"=4))
+
+data11_3 <- df_mgr2010 %>% 
+  select(c(1,"2010"=4))
+
+data12_3 <- df_mgr2011 %>% 
+  select(c(1,"2011"=4))
+
+data13_3 <- df_mgr2012 %>% 
+  select(c(1,"2012"=4))
+
+data14_3 <- df_mgr2013 %>% 
+  select(c(1,"2013"=4))
+
+data15_3 <- df_mgr2014 %>% 
+  select(c(1,"2014"=4))
+
+data16_3 <- df_mgr2015 %>% 
+  select(c(1,"2015"=4))
+
+data17_3 <- df_mgr2016 %>% 
+  select(c(1,"2016"=4))
+
+data18_3 <- df_mgr2017 %>% 
+  select(c(1,"2017"=4))
+
+data19_3 <- df_mgr2018 %>% 
+  select(c(1,"2018"=4))
+
+data20_3 <- df_mgr2019 %>% 
+  select(c(1,"2019"=4))
+
+
+Inflows_of_asylum_seekers_by_nationality_Total <- join_all(list(data1_3,data2_3,data3_3,data4_3,data5_3,data6_3,data7_3,data8_3,data9_3,data10_3,data11_3,data12_3,data13_3,data14_3,data15_3,data16_3,data17_3,data18_3,data19_3,data20_3),by="Country",type = "full")
+```
+
+```{r clear NA Values 2}
+sum(is.na(Inflows_of_asylum_seekers_by_nationality_Total))
+Inflows_of_asylum_seekers_by_nationality_Total[is.na(Inflows_of_asylum_seekers_by_nationality_Total)]<-0
+```
+
+```{r 3rd plot}
+temp_table3 = Inflows_of_asylum_seekers_by_nationality_Total[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Inflows_of_asylum_seekers_by_nationality_Total)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_3 <- melt(temp_table3)
+df_3$row_id = 1:10
+
+ggplot(df_3, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_3, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+## ayslum visa of women in not given from  2012
+
+```{r 5th column merge operation}
+
+data1_5 <- df_mgr2000 %>% 
+  select(c(1,"2000"=6))
+
+data2_5 <- df_mgr2001 %>% 
+  select(c(1,"2001"=6))
+
+data3_5 <- df_mgr2002 %>% 
+  select(c(1,"2002"=6))
+
+data4_5 <- df_mgr2003 %>% 
+  select(c(1,"2003"=6))
+
+data5_5 <- df_mgr2004 %>% 
+  select(c(1,"2004"=6))
+
+data6_5 <- df_mgr2005 %>% 
+  select(c(1,"2005"=6))
+
+data7_5 <- df_mgr2006 %>% 
+  select(c(1,"2006"=6))
+
+data8_5 <- df_mgr2007 %>% 
+  select(c(1,"2007"=6))
+
+data9_5 <- df_mgr2008 %>% 
+  select(c(1,"2008"=6))
+
+data10_5 <- df_mgr2009 %>% 
+  select(c(1,"2009"=6))
+
+data11_5 <- df_mgr2010 %>% 
+  select(c(1,"2010"=6))
+
+data12_5 <- df_mgr2011 %>% 
+  select(c(1,"2011"=6))
+
+data13_5 <- df_mgr2012 %>% 
+  select(c(1,"2012"=5))
+
+data14_5 <- df_mgr2013 %>% 
+  select(c(1,"2013"=5))
+
+data15_5 <- df_mgr2014 %>% 
+  select(c(1,"2014"=5))
+
+data16_5 <- df_mgr2015 %>% 
+  select(c(1,"2015"=5))
+
+data17_5 <- df_mgr2016 %>% 
+  select(c(1,"2016"=5))
+
+data18_5 <- df_mgr2017 %>% 
+  select(c(1,"2017"=5))
+
+data19_5 <- df_mgr2018 %>% 
+  select(c(1,"2018"=5))
+
+data20_5 <- df_mgr2019 %>% 
+  select(c(1,"2019"=5))
+
+
+Inflows_of_foreign_population_by_nationality_Total <- join_all(list(data1_5,data2_5,data3_5,data4_5,data5_5,data6_5,data7_5,data8_5,data9_5,data10_5,data11_5,data12_5,data13_5,data14_5,data15_5,data16_5,data17_5,data18_5,data19_5,data20_5),by="Country",type = "full")
+ 
+```
+
+```{r clear NA Values 3}
+sum(is.na(Inflows_of_foreign_population_by_nationality_Total))
+Inflows_of_foreign_population_by_nationality_Total[is.na(Inflows_of_foreign_population_by_nationality_Total)]<-0
+```
+
+```{r 5th plot}
+temp_table5 = Inflows_of_foreign_population_by_nationality_Total[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Inflows_of_foreign_population_by_nationality_Total)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_5 <- melt(temp_table5)
+df_5$row_id = 1:10
+
+ggplot(df_5, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_5, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 6th column merge operation}
+
+data1_6 <- df_mgr2000 %>% 
+  select(c(1,"2000"=7))
+
+data2_6 <- df_mgr2001 %>% 
+  select(c(1,"2001"=7))
+
+data3_6 <- df_mgr2002 %>% 
+  select(c(1,"2002"=7))
+
+data4_6 <- df_mgr2003 %>% 
+  select(c(1,"2003"=7))
+
+data5_6 <- df_mgr2004 %>% 
+  select(c(1,"2004"=7))
+
+data6_6 <- df_mgr2005 %>% 
+  select(c(1,"2005"=7))
+
+data7_6 <- df_mgr2006 %>% 
+  select(c(1,"2006"=7))
+
+data8_6 <- df_mgr2007 %>% 
+  select(c(1,"2007"=7))
+
+data9_6 <- df_mgr2008 %>% 
+  select(c(1,"2008"=7))
+
+data10_6 <- df_mgr2009 %>% 
+  select(c(1,"2009"=7))
+
+data11_6 <- df_mgr2010 %>% 
+  select(c(1,"2010"=7))
+
+data12_6 <- df_mgr2011 %>% 
+  select(c(1,"2011"=7))
+
+data13_6 <- df_mgr2012 %>% 
+  select(c(1,"2012"=6))
+
+data14_6 <- df_mgr2013 %>% 
+  select(c(1,"2013"=6))
+
+data15_6 <- df_mgr2014 %>% 
+  select(c(1,"2014"=6))
+
+data16_6 <- df_mgr2015 %>% 
+  select(c(1,"2015"=6))
+
+data17_6 <- df_mgr2016 %>% 
+  select(c(1,"2016"=6))
+
+data18_6 <- df_mgr2017 %>% 
+  select(c(1,"2017"=6))
+
+data19_6 <- df_mgr2018 %>% 
+  select(c(1,"2018"=6))
+
+data20_6 <- df_mgr2019 %>% 
+  select(c(1,"2019"=6))
+
+
+Inflows_of_foreign_population_by_nationality_Women <- join_all(list(data1_6,data2_6,data3_6,data4_6,data5_6,data6_6,data7_6,data8_6,data9_6,data10_6,data11_6,data12_6,data13_6,data14_6,data15_6,data16_6,data17_6,data18_6,data19_6,data20_6),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 4}
+sum(is.na(Inflows_of_foreign_population_by_nationality_Women))
+Inflows_of_foreign_population_by_nationality_Women[is.na(Inflows_of_foreign_population_by_nationality_Women)]<-0
+```
+
+```{r 6th plot}
+temp_table6 = Inflows_of_foreign_population_by_nationality_Women[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+
+df <- melt(Inflows_of_foreign_population_by_nationality_Women)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_6 <- melt(temp_table6)
+df_6$row_id = 1:10
+
+ggplot(df_6, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_6, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 7th column merge operation}
+
+data1_7 <- df_mgr2000 %>% 
+  select(c(1,"2000"=8))
+
+data2_7 <- df_mgr2001 %>% 
+  select(c(1,"2001"=8))
+
+data3_7 <- df_mgr2002 %>% 
+  select(c(1,"2002"=8))
+
+data4_7 <- df_mgr2003 %>% 
+  select(c(1,"2003"=8))
+
+data5_7 <- df_mgr2004 %>% 
+  select(c(1,"2004"=8))
+
+data6_7 <- df_mgr2005 %>% 
+  select(c(1,"2005"=8))
+
+data7_7 <- df_mgr2006 %>% 
+  select(c(1,"2006"=8))
+
+data8_7 <- df_mgr2007 %>% 
+  select(c(1,"2007"=8))
+
+data9_7 <- df_mgr2008 %>% 
+  select(c(1,"2008"=8))
+
+data10_7 <- df_mgr2009 %>% 
+  select(c(1,"2009"=8))
+
+data11_7 <- df_mgr2010 %>% 
+  select(c(1,"2010"=8))
+
+data12_7 <- df_mgr2011 %>% 
+  select(c(1,"2011"=8))
+
+data13_7 <- df_mgr2012 %>% 
+  select(c(1,"2012"=7))
+
+data14_7 <- df_mgr2013 %>% 
+  select(c(1,"2013"=7))
+
+data15_7 <- df_mgr2014 %>% 
+  select(c(1,"2014"=7))
+
+data16_7 <- df_mgr2015 %>% 
+  select(c(1,"2015"=7))
+
+data17_7 <- df_mgr2016 %>% 
+  select(c(1,"2016"=7))
+
+data18_7 <- df_mgr2017 %>% 
+  select(c(1,"2017"=7))
+
+data19_7 <- df_mgr2018 %>% 
+  select(c(1,"2018"=7))
+
+data20_7 <- df_mgr2019 %>% 
+  select(c(1,"2019"=7))
+
+
+Inflows_Of_Foreign_Workers_By_Nationality_Total <- join_all(list(data1_7,data2_7,data3_7,data4_7,data5_7,data6_7,data7_7,data8_7,data9_7,data10_7,data11_7,data12_7,data13_7,data14_7,data15_7,data16_7,data17_7,data18_7,data19_7,data20_7),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 5}
+sum(is.na(Inflows_Of_Foreign_Workers_By_Nationality_Total))
+Inflows_Of_Foreign_Workers_By_Nationality_Total[is.na(Inflows_Of_Foreign_Workers_By_Nationality_Total)]<-0
+```
+
+```{r 7th plot}
+
+temp_table7 = Inflows_Of_Foreign_Workers_By_Nationality_Total[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Inflows_Of_Foreign_Workers_By_Nationality_Total)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_7 <- melt(temp_table7)
+df_7$row_id = 1:10
+
+ggplot(df_7, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_7, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 8th column merge operation}
+
+data1_8 <- df_mgr2000 %>% 
+  select(c(1,"2000"=9))
+
+data2_8 <- df_mgr2001 %>% 
+  select(c(1,"2001"=9))
+
+data3_8 <- df_mgr2002 %>% 
+  select(c(1,"2002"=9))
+
+data4_8 <- df_mgr2003 %>% 
+  select(c(1,"2003"=9))
+
+data5_8 <- df_mgr2004 %>% 
+  select(c(1,"2004"=9))
+
+data6_8 <- df_mgr2005 %>% 
+  select(c(1,"2005"=9))
+
+data7_8 <- df_mgr2006 %>% 
+  select(c(1,"2006"=9))
+
+data8_8 <- df_mgr2007 %>% 
+  select(c(1,"2007"=9))
+
+data9_8 <- df_mgr2008 %>% 
+  select(c(1,"2008"=9))
+
+data10_8 <- df_mgr2009 %>% 
+  select(c(1,"2009"=9))
+
+data11_8 <- df_mgr2010 %>% 
+  select(c(1,"2010"=9))
+
+data12_8 <- df_mgr2011 %>% 
+  select(c(1,"2011"=9))
+
+data13_8 <- df_mgr2012 %>% 
+  select(c(1,"2012"=8))
+
+data14_8 <- df_mgr2013 %>% 
+  select(c(1,"2013"=8))
+
+data15_8 <- df_mgr2014 %>% 
+  select(c(1,"2014"=8))
+
+data16_8 <- df_mgr2015 %>% 
+  select(c(1,"2015"=8))
+
+data17_8 <- df_mgr2016 %>% 
+  select(c(1,"2016"=8))
+
+data18_8 <- df_mgr2017 %>% 
+  select(c(1,"2017"=8))
+
+data19_8 <- df_mgr2018 %>% 
+  select(c(1,"2018"=8))
+
+data20_8 <- df_mgr2019 %>% 
+  select(c(1,"2019"=8))
+
+
+Inflows_Of_Foreign_Workers_By_Nationality_Women <- join_all(list(data1_8,data2_8,data3_8,data4_8,data5_8,data6_8,data7_8,data8_8,data9_8,data10_8,data11_8,data12_8,data13_8,data14_8,data15_8,data16_8,data17_8,data18_8,data19_8,data20_8),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 6}
+sum(is.na(Inflows_Of_Foreign_Workers_By_Nationality_Women))
+Inflows_Of_Foreign_Workers_By_Nationality_Women[is.na(Inflows_Of_Foreign_Workers_By_Nationality_Women)]<-0
+```
+
+```{r 8th plot}
+temp_table8 = Inflows_Of_Foreign_Workers_By_Nationality_Women[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+
+df <- melt(Inflows_Of_Foreign_Workers_By_Nationality_Women)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_8 <- melt(temp_table8)
+df_8$row_id = 1:10
+
+ggplot(df_8, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_8, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 9th column merge operation}
+
+data1_9 <- df_mgr2000 %>% 
+  select(c(1,"2000"=10))
+
+data2_9 <- df_mgr2001 %>% 
+  select(c(1,"2001"=10))
+
+data3_9 <- df_mgr2002 %>% 
+  select(c(1,"2002"=10))
+
+data4_9 <- df_mgr2003 %>% 
+  select(c(1,"2003"=10))
+
+data5_9 <- df_mgr2004 %>% 
+  select(c(1,"2004"=10))
+
+data6_9 <- df_mgr2005 %>% 
+  select(c(1,"2005"=10))
+
+data7_9 <- df_mgr2006 %>% 
+  select(c(1,"2006"=10))
+
+data8_9 <- df_mgr2007 %>% 
+  select(c(1,"2007"=10))
+
+data9_9 <- df_mgr2008 %>% 
+  select(c(1,"2008"=10))
+
+data10_9 <- df_mgr2009 %>% 
+  select(c(1,"2009"=10))
+
+data11_9 <- df_mgr2010 %>% 
+  select(c(1,"2010"=10))
+
+data12_9 <- df_mgr2011 %>% 
+  select(c(1,"2011"=10))
+
+data13_9 <- df_mgr2012 %>% 
+  select(c(1,"2012"=9))
+
+data14_9 <- df_mgr2013 %>% 
+  select(c(1,"2013"=9))
+
+data15_9 <- df_mgr2014 %>% 
+  select(c(1,"2014"=9))
+
+data16_9 <- df_mgr2015 %>% 
+  select(c(1,"2015"=9))
+
+data17_9 <- df_mgr2016 %>% 
+  select(c(1,"2016"=9))
+
+data18_9 <- df_mgr2017 %>% 
+  select(c(1,"2017"=9))
+
+data19_9 <- df_mgr2018 %>% 
+  select(c(1,"2018"=9))
+
+data20_9 <- df_mgr2019 %>% 
+  select(c(1,"2019"=9))
+
+
+Outflows_of_foreign_population_by_nationality_Total <- join_all(list(data1_9,data2_9,data3_9,data4_9,data5_9,data6_9,data7_9,data8_9,data9_9,data10_9,data11_9,data12_9,data13_9,data14_9,data15_9,data16_9,data17_9,data18_9,data19_9,data20_9),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 7}
+sum(is.na(Outflows_of_foreign_population_by_nationality_Total))
+Outflows_of_foreign_population_by_nationality_Total[is.na(Outflows_of_foreign_population_by_nationality_Total)]<-0
+```
+
+```{r 9th plot}
+temp_table9 = Outflows_of_foreign_population_by_nationality_Total[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Outflows_of_foreign_population_by_nationality_Total)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_9 <- melt(temp_table9)
+df_9$row_id = 1:10
+
+ggplot(df_9, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_9, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 10th column merge operation}
+data1_10 <- df_mgr2000 %>% 
+  select(c(1,"2000"=11))
+
+data2_10 <- df_mgr2001 %>% 
+  select(c(1,"2001"=11))
+
+data3_10 <- df_mgr2002 %>% 
+  select(c(1,"2002"=11))
+
+data4_10 <- df_mgr2003 %>% 
+  select(c(1,"2003"=11))
+
+data5_10 <- df_mgr2004 %>% 
+  select(c(1,"2004"=11))
+
+data6_10 <- df_mgr2005 %>% 
+  select(c(1,"2005"=11))
+
+data7_10 <- df_mgr2006 %>% 
+  select(c(1,"2006"=11))
+
+data8_10 <- df_mgr2007 %>% 
+  select(c(1,"2007"=11))
+
+data9_10 <- df_mgr2008 %>% 
+  select(c(1,"2008"=11))
+
+data10_10 <- df_mgr2009 %>% 
+  select(c(1,"2009"=11))
+
+data11_10 <- df_mgr2010 %>% 
+  select(c(1,"2010"=11))
+
+data12_10 <- df_mgr2011 %>% 
+  select(c(1,"2011"=11))
+
+data13_10 <- df_mgr2012 %>% 
+  select(c(1,"2012"=10))
+
+data14_10 <- df_mgr2013 %>% 
+  select(c(1,"2013"=10))
+
+data15_10 <- df_mgr2014 %>% 
+  select(c(1,"2014"=10))
+
+data16_10 <- df_mgr2015 %>% 
+  select(c(1,"2015"=10))
+
+data17_10 <- df_mgr2016 %>% 
+  select(c(1,"2016"=10))
+
+data18_10 <- df_mgr2017 %>% 
+  select(c(1,"2017"=10))
+
+data19_10 <- df_mgr2018 %>% 
+  select(c(1,"2018"=10))
+
+data20_10 <- df_mgr2019 %>% 
+  select(c(1,"2019"=10))
+
+
+Outflows_of_foreign_population_by_nationality_Women <- join_all(list(data1_10,data2_10,data3_10,data4_10,data5_10,data6_10,data7_10,data8_10,data9_10,data10_10,data11_10,data12_10,data13_10,data14_10,data15_10,data16_10,data17_10,data18_10,data19_10,data20_10),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 8}
+sum(is.na(Outflows_of_foreign_population_by_nationality_Women))
+Outflows_of_foreign_population_by_nationality_Women[is.na(Outflows_of_foreign_population_by_nationality_Women)]<-0
+```
+
+```{r 10th plot}
+temp_table10 = Outflows_of_foreign_population_by_nationality_Women[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Outflows_of_foreign_population_by_nationality_Women)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_10 <- melt(temp_table10)
+df_10$row_id = 1:10
+
+ggplot(df_10, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_10, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 11th column merge operation}
+
+data1_11 <- df_mgr2000 %>% 
+  select(c(1,"2000"=12))
+
+data2_11 <- df_mgr2001 %>% 
+  select(c(1,"2001"=12))
+
+data3_11 <- df_mgr2002 %>% 
+  select(c(1,"2002"=12))
+
+data4_11 <- df_mgr2003 %>% 
+  select(c(1,"2003"=12))
+
+data5_11 <- df_mgr2004 %>% 
+  select(c(1,"2004"=12))
+
+data6_11 <- df_mgr2005 %>% 
+  select(c(1,"2005"=12))
+
+data7_11 <- df_mgr2006 %>% 
+  select(c(1,"2006"=12))
+
+data8_11 <- df_mgr2007 %>% 
+  select(c(1,"2007"=12))
+
+data9_11 <- df_mgr2008 %>% 
+  select(c(1,"2008"=12))
+
+data10_11 <- df_mgr2009 %>% 
+  select(c(1,"2009"=12))
+
+data11_11 <- df_mgr2010 %>% 
+  select(c(1,"2010"=12))
+
+data12_11 <- df_mgr2011 %>% 
+  select(c(1,"2011"=12))
+
+data13_11 <- df_mgr2012 %>% 
+  select(c(1,"2012"=11))
+
+data14_11 <- df_mgr2013 %>% 
+  select(c(1,"2013"=11))
+
+data15_11 <- df_mgr2014 %>% 
+  select(c(1,"2014"=11))
+
+data16_11 <- df_mgr2015 %>% 
+  select(c(1,"2015"=11))
+
+data17_11 <- df_mgr2016 %>% 
+  select(c(1,"2016"=11))
+
+data18_11 <- df_mgr2017 %>% 
+  select(c(1,"2017"=11))
+
+data19_11 <- df_mgr2018 %>% 
+  select(c(1,"2018"=11))
+
+data20_11 <- df_mgr2019 %>% 
+  select(c(1,"2019"=11))
+
+
+Stock_o_foreign_population_by_nationality_Total <- join_all(list(data1_11,data2_11,data3_11,data4_11,data5_11,data6_11,data7_11,data8_11,data9_11,data10_11,data11_11,data12_11,data13_11,data14_11,data15_11,data16_11,data17_11,data18_11,data19_11,data20_11),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 9}
+sum(is.na(Stock_o_foreign_population_by_nationality_Total))
+Stock_o_foreign_population_by_nationality_Total[is.na(Stock_o_foreign_population_by_nationality_Total)]<-0
+```
+
+```{r 11th plot}
+temp_table11 = Stock_o_foreign_population_by_nationality_Total[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Stock_o_foreign_population_by_nationality_Total)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_11 <- melt(temp_table11)
+df_11$row_id = 1:10
+
+ggplot(df_11, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_11, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 12th column merge operation}
+
+data1_12 <- df_mgr2000 %>% 
+  select(c(1,"2000"=13))
+
+data2_12 <- df_mgr2001 %>% 
+  select(c(1,"2001"=13))
+
+data3_12 <- df_mgr2002 %>% 
+  select(c(1,"2002"=13))
+
+data4_12 <- df_mgr2003 %>% 
+  select(c(1,"2003"=13))
+
+data5_12 <- df_mgr2004 %>% 
+  select(c(1,"2004"=13))
+
+data6_12 <- df_mgr2005 %>% 
+  select(c(1,"2005"=13))
+
+data7_12 <- df_mgr2006 %>% 
+  select(c(1,"2006"=13))
+
+data8_12 <- df_mgr2007 %>% 
+  select(c(1,"2007"=13))
+
+data9_12 <- df_mgr2008 %>% 
+  select(c(1,"2008"=13))
+
+data10_12 <- df_mgr2009 %>% 
+  select(c(1,"2009"=13))
+
+data11_12 <- df_mgr2010 %>% 
+  select(c(1,"2010"=13))
+
+data12_12 <- df_mgr2011 %>% 
+  select(c(1,"2011"=13))
+
+data13_12 <- df_mgr2012 %>% 
+  select(c(1,"2012"=12))
+
+data14_12 <- df_mgr2013 %>% 
+  select(c(1,"2013"=12))
+
+data15_12 <- df_mgr2014 %>% 
+  select(c(1,"2014"=12))
+
+data16_12 <- df_mgr2015 %>% 
+  select(c(1,"2015"=12))
+
+data17_12 <- df_mgr2016 %>% 
+  select(c(1,"2016"=12))
+
+data18_12 <- df_mgr2017 %>% 
+  select(c(1,"2017"=12))
+
+data19_12 <- df_mgr2018 %>% 
+  select(c(1,"2018"=12))
+
+data20_12 <- df_mgr2019 %>% 
+  select(c(1,"2019"=12))
+
+
+Stock_o_foreign_population_by_nationality_Women <- join_all(list(data1_12,data2_12,data3_12,data4_12,data5_12,data6_12,data7_12,data8_12,data9_12,data10_12,data11_12,data12_12,data13_12,data14_12,data15_12,data16_12,data17_12,data18_12,data19_12,data20_12),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 10}
+sum(is.na(Stock_o_foreign_population_by_nationality_Women))
+Stock_o_foreign_population_by_nationality_Women[is.na(Stock_o_foreign_population_by_nationality_Women)]<-0
+```
+
+```{r 12th plot}
+temp_table12 = Stock_o_foreign_population_by_nationality_Women[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Stock_o_foreign_population_by_nationality_Women)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_12 <- melt(temp_table12)
+df_12$row_id = 1:10
+
+ggplot(df_12, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_12, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 13th column merge operation}
+
+data1_13 <- df_mgr2000 %>% 
+  select(c(1,"2000"=14))
+
+data2_13 <- df_mgr2001 %>% 
+  select(c(1,"2001"=14))
+
+data3_13 <- df_mgr2002 %>% 
+  select(c(1,"2002"=14))
+
+data4_13 <- df_mgr2003 %>% 
+  select(c(1,"2003"=14))
+
+data5_13 <- df_mgr2004 %>% 
+  select(c(1,"2004"=14))
+
+data6_13 <- df_mgr2005 %>% 
+  select(c(1,"2005"=14))
+
+data7_13 <- df_mgr2006 %>% 
+  select(c(1,"2006"=14))
+
+data8_13 <- df_mgr2007 %>% 
+  select(c(1,"2007"=14))
+
+data9_13 <- df_mgr2008 %>% 
+  select(c(1,"2008"=14))
+
+data10_13 <- df_mgr2009 %>% 
+  select(c(1,"2009"=14))
+
+data11_13 <- df_mgr2010 %>% 
+  select(c(1,"2010"=14))
+
+data12_13 <- df_mgr2011 %>% 
+  select(c(1,"2011"=14))
+
+data13_13 <- df_mgr2012 %>% 
+  select(c(1,"2012"=13))
+
+data14_13 <- df_mgr2013 %>% 
+  select(c(1,"2013"=13))
+
+data15_13 <- df_mgr2014 %>% 
+  select(c(1,"2014"=13))
+
+data16_13 <- df_mgr2015 %>% 
+  select(c(1,"2015"=13))
+
+data17_13 <- df_mgr2016 %>% 
+  select(c(1,"2016"=13))
+
+data18_13 <- df_mgr2017 %>% 
+  select(c(1,"2017"=13))
+
+data19_13 <- df_mgr2018 %>% 
+  select(c(1,"2018"=13))
+
+data20_13 <- df_mgr2019 %>% 
+  select(c(1,"2019"=13))
+
+
+Stock_of_foreign_born_population_by_country_of_birth_Total <- join_all(list(data1_13,data2_13,data3_13,data4_13,data5_13,data6_13,data7_13,data8_13,data9_13,data10_13,data11_13,data12_13,data13_13,data14_13,data15_13,data16_13,data17_13,data18_13,data19_13,data20_13),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 11}
+sum(is.na(Stock_of_foreign_born_population_by_country_of_birth_Total))
+Stock_of_foreign_born_population_by_country_of_birth_Total[is.na(Stock_of_foreign_born_population_by_country_of_birth_Total)]<-0
+```
+
+```{r 13th plot}
+temp_table13 = Stock_of_foreign_born_population_by_country_of_birth_Total[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Stock_of_foreign_born_population_by_country_of_birth_Total)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_13 <- melt(temp_table13)
+df_13$row_id = 1:10
+
+ggplot(df_13, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_13, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+```{r 14th column merge operation}
+
+data1_14 <- df_mgr2000 %>% 
+  select(c(1,"2000"=15))
+
+data2_14 <- df_mgr2001 %>% 
+  select(c(1,"2001"=15))
+
+data3_14 <- df_mgr2002 %>% 
+  select(c(1,"2002"=15))
+
+data4_14 <- df_mgr2003 %>% 
+  select(c(1,"2003"=15))
+
+data5_14 <- df_mgr2004 %>% 
+  select(c(1,"2004"=15))
+
+data6_14 <- df_mgr2005 %>% 
+  select(c(1,"2005"=15))
+
+data7_14 <- df_mgr2006 %>% 
+  select(c(1,"2006"=15))
+
+data8_14 <- df_mgr2007 %>% 
+  select(c(1,"2007"=15))
+
+data9_14 <- df_mgr2008 %>% 
+  select(c(1,"2008"=15))
+
+data10_14 <- df_mgr2009 %>% 
+  select(c(1,"2009"=15))
+
+data11_14 <- df_mgr2010 %>% 
+  select(c(1,"2010"=15))
+
+data12_14 <- df_mgr2011 %>% 
+  select(c(1,"2011"=15))
+
+data13_14 <- df_mgr2012 %>% 
+  select(c(1,"2012"=14))
+
+data14_14 <- df_mgr2013 %>% 
+  select(c(1,"2013"=14))
+
+data15_14 <- df_mgr2014 %>% 
+  select(c(1,"2014"=14))
+
+data16_14 <- df_mgr2015 %>% 
+  select(c(1,"2015"=14))
+
+data17_14 <- df_mgr2016 %>% 
+  select(c(1,"2016"=14))
+
+data18_14 <- df_mgr2017 %>% 
+  select(c(1,"2017"=14))
+
+data19_14 <- df_mgr2018 %>% 
+  select(c(1,"2018"=14))
+
+data20_14 <- df_mgr2019 %>% 
+  select(c(1,"2019"=14))
+
+
+Stock_of_foreign_born_population_by_country_of_birth_Women <- join_all(list(data1_14,data2_14,data3_14,data4_14,data5_14,data6_14,data7_14,data8_14,data9_14,data10_14,data11_14,data12_14,data13_14,data14_14,data15_14,data16_14,data17_14,data18_14,data19_14,data20_14),by="Country",type = "full")
+
+```
+
+```{r clear NA Values 12}
+sum(is.na(Stock_of_foreign_born_population_by_country_of_birth_Women))
+Stock_of_foreign_born_population_by_country_of_birth_Women[is.na(Stock_of_foreign_born_population_by_country_of_birth_Women)]<-0
+```
+
+```{r 14th plot}
+temp_table14 = Stock_of_foreign_born_population_by_country_of_birth_Women[-c(2,3,5,6,7,8,9,12,13,14,15,16,17,20,21,22,23,24,25,26,27,28,29,31,32),]
+
+df <- melt(Stock_of_foreign_born_population_by_country_of_birth_Women)
+df$row_id = 1:35
+
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+
+df_14 <- melt(temp_table14)
+df_14$row_id = 1:10
+
+ggplot(df_14, aes(variable, value, group=factor(Country))) + geom_point(aes(color=factor(Country)))
+ggplot(df_14, aes(variable, value, group=factor(Country))) + geom_line(aes(color=factor(Country)))
+```
+
+#Plotting 
+```{r}
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
